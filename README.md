@@ -1,4 +1,4 @@
-# Build An Album Store Product Page With Angular
+# Build An Album Store Product Page With Angular.
 
 This repo contains the code for the Pluralsight Project "Build An Album Store Product Page With Angular," located here: https://app.pluralsight.com/projects/build-an-album-store-product-page-with-angular/
 
