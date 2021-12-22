@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     AWS_ACCOUNT_ID: "MudathirLawal"
-    IMAGE_REPO_NAME: "aws-codebuild-demo"
+    IMAGE_REPO_NAME: ""
     APP_NAME: "zheeta_image"
     IMAGE_TAG: "v12.21"
     AWS_DEFAULT_REGION: "eu-west-3"
@@ -19,7 +19,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com    
   build:
-    command
+    commands:
       - echo Build started on `date`
       - printenv
       - docker build -t $APP_NAME --build-arg IMAGE_TAG=$IMAGE_TAG .
