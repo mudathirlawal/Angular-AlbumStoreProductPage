@@ -3,8 +3,8 @@ version: 0.2
 env:
   variables:
     AWS_ACCOUNT_ID: "MudathirLawal"
-    IMAGE_REPO_NAME: "zheeta-image"
-    APP_NAME: "zheeta-image"
+    IMAGE_REPO_NAME: "zheeta-app-image"
+    APP_NAME: "zheeta-app"
     IMAGE_TAG: "v12.21"
     AWS_DEFAULT_REGION: "eu-west-3"
 
