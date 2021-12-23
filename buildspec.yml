@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    AWS_ACCOUNT_ID: "MudathirLawal"
+    AWS_ACCOUNT_ID: "428819381342"
     IMAGE_REPO_NAME: "album-store-image"
     APP_NAME: "album-store-app"
     IMAGE_TAG: "latest"
