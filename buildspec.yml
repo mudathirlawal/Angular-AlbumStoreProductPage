@@ -31,7 +31,7 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 428819381342.dkr.ecr.us-east-1.amazonaws.com/angular-album-store-product-page:latest
+      - docker push 428819381342.dkr.ecr.us-east-1.amazonaws.com/angular-album-store-product-page:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 
