@@ -16,6 +16,8 @@ phases:
       - docker-compose --version
   pre_build:
     commands:
+      - echo Logging in to Docker Hub...
+      - echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USER --password-stdin
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com    
   build:
@@ -38,4 +40,3 @@ phases:
 artifacts:
   files:
     - imagedefinitions.json
-
