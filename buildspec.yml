@@ -5,7 +5,7 @@ env:
     AWS_ACCOUNT_ID: "428819381342"
     IMAGE_REPO_NAME: "angular-album-store-product-page"
     APP_NAME: "album-store-app"
-    IMAGE_TAG: "v12.21"
+    IMAGE_TAG: "latest"
     AWS_DEFAULT_REGION: "us-east-1"
 
 phases:
@@ -31,12 +31,11 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 428819381342.dkr.ecr.us-east-1.amazonaws.com/angular-album-store-product-page:v12.21
+      - docker push 428819381342.dkr.ecr.us-east-1.amazonaws.com/angular-album-store-product-page:latest
       - echo Writing image definitions file...
       - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
   files:
     - imagedefinitions.json
-
 
