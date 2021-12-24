@@ -29,7 +29,7 @@ phases:
     commands:
       - echo Build started on `date`
       - printenv
-      - docker build -t $IMAGE_NAME .  
+      - docker build -t $IMAGE_NAME:latest .  
       - docker images -a
       - echo Building the Docker image...
       - docker tag $REPO_URI/$IMAGE_NAME:latest $REPO_URI/$IMAGE_NAME:$IMAGE_TAG 
