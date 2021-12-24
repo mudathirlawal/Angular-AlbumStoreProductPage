@@ -34,7 +34,7 @@ phases:
       # - docker build -t $REPO_URI .      
       - docker images -a
       - echo Building the Docker image...
-      - docker tag $REPO_URI/$IMAGE_NAME:latest $REPO_URI/$IMAGE_NAME:$IMAGE_TAG
+      - docker tag $REPO_URI/$IMAGE_NAME:$IMAGE_TAG
       # - docker tag $REPO_URI:latest $REPO_URI:$IMAGE_TAG      
       - docker images -a
   post_build:
