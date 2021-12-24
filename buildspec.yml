@@ -2,11 +2,11 @@ version: 0.2
 
 env:
   variables:
-    AWS_ACCOUNT_ID: "428819381342"
-    IMAGE_REPO_NAME: "angular-album-store-product-page"
+    VERSION_NO: "v12.21"
     APP_NAME: "album-store-app"
-    IMAGE_TAG: "latest"
     AWS_DEFAULT_REGION: "us-east-1"
+    IMAGE_REPO_NAME: "angular-album-store-product-page"
+    REPOSITORY_URI: ${AWS_ACCOUNT_ID.dkr.ecr.AWS_DEFAULT_REGION.amazonaws.com/IMAGE_REPO_NAME}
 
 phases:
   install:
@@ -19,23 +19,29 @@ phases:
       - echo Logging in to Docker Hub...
       - echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USER --password-stdin
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com    
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION
+      - docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${VERSION_NO:=COMMIT_HASH}
+      - echo $REPOSITORY_URI
+      - echo $COMMIT_HASH
+      - echo $IMAGE_TAG 
   build:
     commands:
       - echo Build started on `date`
       - printenv
-      - docker build -t angular-album-store-product-page .
+      - docker build -t $IMAGE_REPO_NAME .
       - docker images -a
       - echo Building the Docker image...
-      - docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
       - docker images -a
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push 428819381342.dkr.ecr.us-east-1.amazonaws.com/angular-album-store-product-page:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
   files:
