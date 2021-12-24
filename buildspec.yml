@@ -18,8 +18,8 @@ phases:
       - echo Logging in to Docker Hub...
       - echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USER --password-stdin
       - echo Logging in to Amazon ECR...
-      # - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com
-      - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$IMAGE_NAME    
+      - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com
+      # - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$IMAGE_NAME    
       - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7) 
       - IMAGE_TAG=${VERSION_NO:=COMMIT_HASH}
@@ -30,22 +30,22 @@ phases:
     commands:
       - echo Build started on `date`
       - printenv
-      # - docker build -t $IMAGE_NAME .
-      - docker build -t $REPO_URI .      
+      - docker build -t $IMAGE_NAME .
+      # - docker build -t $REPO_URI .      
       - docker images -a
       - echo Building the Docker image...
-      # - docker tag $REPO_URI/$IMAGE_NAME:latest $REPO_URI/$IMAGE_NAME:$IMAGE_TAG
-      - docker tag $REPO_URI:latest $REPO_URI:$IMAGE_TAG      
+      - docker tag $REPO_URI/$IMAGE_NAME:latest $REPO_URI/$IMAGE_NAME:$IMAGE_TAG
+      # - docker tag $REPO_URI:latest $REPO_URI:$IMAGE_TAG      
       - docker images -a
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      # - docker push $REPO_URI/$IMAGE_NAME:$IMAGE_TAG      
-      - docker push $REPO_URI:$IMAGE_TAG
+      - docker push $REPO_URI/$IMAGE_NAME:$IMAGE_TAG      
+      # - docker push $REPO_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      # - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $REPO_URI/$IMAGE_NAME:$IMAGE_TAG > imagedefinitions.json
-      - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $REPO_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $REPO_URI/$IMAGE_NAME:$IMAGE_TAG > imagedefinitions.json
+      # - printf '[{"name":"topratetransferfrontend","imageUri":"%s"}]' $REPO_URI:$IMAGE_TAG > imagedefinitions.json
 
 artifacts:
   files:
