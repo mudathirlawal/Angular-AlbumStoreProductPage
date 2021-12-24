@@ -1,4 +1,5 @@
-https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiN2x0NlA3U2IzUGlFM1Z4UFNMTGFFSlhtaDZLZDBsUGFHM2I0aERhSXZ5bDFwOCtCQXNuWnU4VWwrcC9JVXBkQm5KR29yZmlzMUNmeFExdS91QkNuQTlzPSIsIml2UGFyYW1ldGVyU3BlYyI6Ii9BS3BEVlVYU0hqYjhFRXEiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main
+![AWS CodeBuild](<https://codebuild.us-east-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiN2x0NlA3U2IzUGlFM1Z4UFNMTGFFSlhtaDZLZDBsUGFHM2I0aERhSXZ5bDFwOCtCQXNuWnU4VWwrcC9JVXBkQm5KR29yZmlzMUNmeFExdS91QkNuQTlzPSIsIml2UGFyYW1ldGVyU3BlYyI6Ii9BS3BEVlVYU0hqYjhFRXEiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main>)
+
 
 # Build An Album Store Product Page With Angular.
 
