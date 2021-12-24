@@ -4,7 +4,7 @@ env:
   variables:
     IMAGE_TAG: "v12.21"
     REGION: "us-east-1"
-    IMAGE_NAME: "product-page"
+    IMAGE_NAME: "album-store-product-page"
     APP_NAME: "album-store-app"
 
 phases:
@@ -16,7 +16,12 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
-      - echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USER --password-stdin
+      - echo "$DOCKERHUB_PASS" | do      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7) 
+      - IMAGE_TAG=${COMMIT_HASH:=VERSION_NO}
+      - echo $REPO_URI
+      - echo $COMMIT_HASH
+      - echo $IMAGE_TAG 
+cker login --username $DOCKERHUB_USER --password-stdin
       - echo Logging in to Amazon ECR...
       - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com  
       - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI 
