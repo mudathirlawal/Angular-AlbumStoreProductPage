@@ -2,11 +2,10 @@ version: 0.2
 
 env:
   variables:
-    VERSION_NO=v12.21
-    APP_NAME=album-store-app
-    DEFAULT_REGION=us-east-1
-    IMAGE_NAME=angular-album-store-product-page
-    REPO_URI=${AWS_ACCOUNT_ID.dkr.ecr.DEFAULT_REGION.amazonaws.com}
+    REGION: "us-east-1"
+    VERSION_NO: "v12.21"
+    IMAGE_NAME: "product-page"
+    APP_NAME: "book-store-app"
 
 phases:
   install:
@@ -19,7 +18,8 @@ phases:
       - echo Logging in to Docker Hub...
       - echo "$DOCKERHUB_PASS" | docker login --username $DOCKERHUB_USER --password-stdin
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $DEFAULT_REGION | docker login --username AWS --password-stdin $REPO_URI
+      - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI
+      - REPO_URI=${AWS_ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com}
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${VERSION_NO:=COMMIT_HASH}
       - echo $REPO_URI
