@@ -21,7 +21,7 @@ phases:
       - REPO_URI=$AWS_ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com  
       - aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7) 
-      - IMAGE_TAG=${VERSION_NO:=COMMIT_HASH}
+      - IMAGE_TAG=${COMMIT_HASH:=VERSION_NO}
       - echo $REPO_URI
       - echo $COMMIT_HASH
       - echo $IMAGE_TAG 
@@ -32,7 +32,7 @@ phases:
       - docker build -t $IMAGE_NAME .  
       - docker images -a
       - echo Building the Docker image...
-      - docker tag $REPO_URI/$IMAGE_NAME:$IMAGE_TAG  
+      - docker tag $REPO_URI/$IMAGE_NAME:latest $REPO_URI/$IMAGE_NAME:$IMAGE_TAG 
       - docker images -a
   post_build:
     commands:
