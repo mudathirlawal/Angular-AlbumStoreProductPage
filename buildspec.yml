@@ -5,7 +5,7 @@ env:
     VERSION_NO: "v12.21"
     APP_NAME: "album-store-app"
     DEFAULT_REGION: "us-east-1"
-    IMAGE_REPO_NAME: "angular-album-store-product-page"
+    IMAGE_NAME: "angular-album-store-product-page"
     REPO_URI: ${AWS_ACCOUNT_ID.dkr.ecr.DEFAULT_REGION.amazonaws.com/}
 
 phases:
